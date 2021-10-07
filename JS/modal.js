@@ -43,6 +43,7 @@ function launchModal() {
 	CitySelected = null;
 	conditionsErr.textContent = "";
 	modalbg.style.display = "block";
+	document.getElementById("form").style.display = "block";
 }
 
 // Ajout de la fonctionnalité au bouton (x): Femeture de la modale
