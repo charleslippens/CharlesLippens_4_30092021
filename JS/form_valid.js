@@ -27,10 +27,9 @@ const regexE = /^\S+@\S+\.\S+$/;
 
 function VerifFirstLast(string, name) {
 	if (!regexN.test(string.trim())) {
-		name.textContent = "Veuillez écrire un minimum de 2 caractères";
+		name.textContent = "Veuillez écrire sans caractères spéciaux";
 	} else {
 		name.textContent = "";
-		input.focus();
 	}
 }
 
@@ -107,7 +106,7 @@ locationInput.forEach((btn) =>
 	})
 );
 
-// Vérification checbox gestion de l'event checkbox
+// Vérification checkbox gestion de l'event checkbox
 
 checkboxInput.addEventListener("change", ($event) => {
 	if (!$event.target.checked) {
@@ -120,42 +119,17 @@ checkboxInput.addEventListener("change", ($event) => {
 // Validation formulaire général (en cours)
 function validate(event) {
 	event.preventDefault();
-	if (!firstNameInput.value.lenght == 0 || !regexN.test(firstNameInput.value.trim())) {
-		firstNameErr.textContent = "Veuillez remplir tous les champs du formulaire";
-		firstNameInput.focus();
+	if (firstNameInput.value.length == 0 || lastNameInput.value.length == 0 || emailInput.value.length == 0 || birthdateInput.value.length == 0 || quantityInput.value.length == 0) {
+		if (firstNameInput.value.length == 0) {firstNameErr.textContent = "Veuillez écrire sans caractères spéciaux";};
+		if (lastNameInput.value.length == 0) {lastNameErr.textContent = "Veuillez écrire sans caractères spéciaux";};
+		if (emailInput.value.length == 0) {emailErr.textContent = "Veuillez écrire une adresse e-mail valide.";};
+		if (quantityInput.value.length == 0) {quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";};
+		if (birthdateInput.value.length == 0) {birthDateErr.textContent = "Veuillez vérifier votre date de naissance";};
+		//locationErr.textContent = "Choisissez une option";
+		//conditionsErr.textContent = "Vérifiez que vous acceptez les conditions.";
 		return false;
 	}
-	if (!lastNameInput.value.lenght == 0 || !regexN.test(lastNameInput.value.trim())) {
-		lastNameErr.textContent = "Veuillez entrer votre nom";
-		lastNameInput.focus();
-		return false;
-	}
-	if (!emailInput.value || !regexE.test(emailInput.value.trim())) {
-		emailErr.textContent = "Veuillez entrer votre adresse e-mail";
-		emailInput.focus();
-		return false;
-	}
-	if (birthdateInput.value.length == 0) {
-		birthDateErr.textContent = "Veuillez vérifier votre date de naissance";
-		birthdateInput.focus();
-		return false;
-	}
-	if (!quantityInput.value || quantityInput.value < 0 || quantityInput.value > 99) {
-		quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";
-		quantityInput.focus();
-		return false;
-	}
-	if (!locationInput) {
-		locationErr.textContent = "Vous devez choisir une option.";
-		return false;
-	} else {
-		locationErr.textContent = "";
-	}
-	if (checkboxInput == false) {
-		conditionsErr.textContent = "Vous devez vérifier que vous acceptez les conditions.";
-		checkboxInput.focus();
-		return false;
-	}
+	
 	document.getElementById("form").style.display = "none";
 	msg.style.display = "flex";
 	document.getElementById("form").reset();
