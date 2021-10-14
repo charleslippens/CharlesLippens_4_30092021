@@ -6,7 +6,6 @@ const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const locationInput = document.querySelectorAll(".checkbox-input[type=radio]");
-const checkboxInput = document.getElementById("checkbox");
 
 // DOM pour les messages des erreurs du formulaire
 
@@ -20,14 +19,14 @@ const conditionsErr = document.getElementById("conditionsError");
 
 // Regex
 
-const regexN = /^[^0-9]{2,}$/;
-const regexE = /^\S+@\S+\.\S+$/;
+const regexN = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
+const regexE = /(?=^.{5,255}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})$/;
 
 // Vérification de firstname et lastname sont valides
 
 function VerifFirstLast(string, name) {
 	if (!regexN.test(string.trim())) {
-		name.textContent = "Veuillez écrire sans caractères spéciaux";
+		name.textContent = "Veuillez écrire sans caractères spéciaux et 2 caractères min";
 	} else {
 		name.textContent = "";
 	}
@@ -108,9 +107,9 @@ locationInput.forEach((btn) =>
 
 // Vérification checkbox gestion de l'event checkbox
 
-checkboxInput.addEventListener("change", ($event) => {
+document.getElementById("checkbox1").addEventListener("change", ($event) => {
 	if (!$event.target.checked) {
-		conditionsErr.textContent = "Vérifiez que vous acceptez les conditions.";
+		conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation.";
 	} else {
 		conditionsErr.textContent = "";
 	}
@@ -119,17 +118,41 @@ checkboxInput.addEventListener("change", ($event) => {
 // Validation formulaire général (en cours)
 function validate(event) {
 	event.preventDefault();
-	if (firstNameInput.value.length == 0 || lastNameInput.value.length == 0 || emailInput.value.length == 0 || birthdateInput.value.length == 0 || quantityInput.value.length == 0) {
-		if (firstNameInput.value.length == 0) {firstNameErr.textContent = "Veuillez écrire sans caractères spéciaux";};
-		if (lastNameInput.value.length == 0) {lastNameErr.textContent = "Veuillez écrire sans caractères spéciaux";};
-		if (emailInput.value.length == 0) {emailErr.textContent = "Veuillez écrire une adresse e-mail valide.";};
-		if (quantityInput.value.length == 0) {quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";};
-		if (birthdateInput.value.length == 0) {birthDateErr.textContent = "Veuillez vérifier votre date de naissance";};
-		//locationErr.textContent = "Choisissez une option";
-		//conditionsErr.textContent = "Vérifiez que vous acceptez les conditions.";
+	if (
+		firstNameInput.value.length == 0 ||
+		lastNameInput.value.length == 0 ||
+		emailInput.value.length == 0 ||
+		birthdateInput.value.length == 0 ||
+		quantityInput.value.length == 0 ||
+		CitySelected == null ||
+		document.reserve.checkbox1.checked == true
+	) {
+		if (firstNameInput.value.length == 0) {
+			firstNameErr.textContent =
+				"Veuillez écrire sans caractères spéciaux et 2 caractères min";
+		}
+		if (lastNameInput.value.length == 0) {
+			lastNameErr.textContent = "Veuillez écrire sans caractères spéciaux";
+		}
+		if (emailInput.value.length == 0) {
+			emailErr.textContent = "Veuillez écrire une adresse e-mail valide.";
+		}
+		if (quantityInput.value.length == 0) {
+			quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";
+		}
+		if (birthdateInput.value.length == 0) {
+			birthDateErr.textContent = "Veuillez vérifier votre date de naissance";
+		}
+		if (!CitySelected) {
+			locationErr.textContent = "Choisissez une option";
+		}
+		if (document.reserve.checkbox1.checked == false) {
+			conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation";
+			document.reserve.checkbox1.focus();
+		}
 		return false;
 	}
-	
+
 	document.getElementById("form").style.display = "none";
 	msg.style.display = "flex";
 	document.getElementById("form").reset();
