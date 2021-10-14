@@ -21,7 +21,7 @@ const conditionsErr = document.getElementById("conditionsError");
 // Regex
 
 const regexN = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
-const regexE = /(?=^.{5,255}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})$/;
+const regexE = /(?=^.{5,255}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
 
 // Vérification de firstname et lastname sont valides
 
@@ -115,6 +115,7 @@ checkboxInput.addEventListener("change", ($event) => {
 		conditionsErr.textContent = "";
 	}
 });
+console.log(checkboxInput.checked);
 
 // Validation formulaire général (en cours)
 function validate(event) {
@@ -126,7 +127,7 @@ function validate(event) {
 		birthdateInput.value.length == 0 ||
 		quantityInput.value.length == 0 ||
 		CitySelected == null ||
-		checkboxInput == false
+		checkboxInput.checked == false
 	) {
 		if (firstNameInput.value.length == 0) {
 			firstNameErr.textContent =
