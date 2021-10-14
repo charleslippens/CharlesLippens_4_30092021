@@ -6,6 +6,7 @@ const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const locationInput = document.querySelectorAll(".checkbox-input[type=radio]");
+const checkboxInput = document.getElementById("checkbox1");
 
 // DOM pour les messages des erreurs du formulaire
 
@@ -107,7 +108,7 @@ locationInput.forEach((btn) =>
 
 // Vérification checkbox gestion de l'event checkbox
 
-document.getElementById("checkbox1").addEventListener("change", ($event) => {
+checkboxInput.addEventListener("change", ($event) => {
 	if (!$event.target.checked) {
 		conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation.";
 	} else {
@@ -125,7 +126,7 @@ function validate(event) {
 		birthdateInput.value.length == 0 ||
 		quantityInput.value.length == 0 ||
 		CitySelected == null ||
-		document.reserve.checkbox1.checked == true
+		checkboxInput == false
 	) {
 		if (firstNameInput.value.length == 0) {
 			firstNameErr.textContent =
@@ -146,9 +147,8 @@ function validate(event) {
 		if (!CitySelected) {
 			locationErr.textContent = "Choisissez une option";
 		}
-		if (document.reserve.checkbox1.checked == false) {
+		if (!checkboxInput.checked) {
 			conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation";
-			document.reserve.checkbox1.focus();
 		}
 		return false;
 	}
