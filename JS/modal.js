@@ -34,14 +34,7 @@ function closingMessage() {
 // Ouverture de la modale : initialisation
 
 function launchModal() {
-	firstNameErr.textContent = "";
-	lastNameErr.textContent = "";
-	emailErr.textContent = "";
-	birthDateErr.textContent = "";
-	quantityErr.textContent = "";
-	locationErr.textContent = "";
 	CitySelected = null;
-	conditionsErr.textContent = "";
 	modalbg.style.display = "block";
 	document.getElementById("form").style.display = "block";
 }

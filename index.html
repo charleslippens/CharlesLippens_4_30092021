@@ -57,7 +57,11 @@
 							onsubmit="return validate(event)"
 							novalidate
 						>
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Votre prénom doit avoir 2 caractères ou plus."
+								data-error-visible="false"
+							>
 								<label for="firstname">Prénom</label><br />
 								<input
 									class="text-control"
@@ -68,9 +72,12 @@
 									minlength="2"
 									required
 								/><br />
-								<div id="nameError" class="error"></div>
 							</div>
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Vore nom doit avoir 2 caractères ou plus."
+								data-error-visible="false"
+							>
 								<label for="lastname">Nom</label><br />
 								<input
 									class="text-control"
@@ -81,9 +88,12 @@
 									minlength="2"
 									required
 								/><br />
-								<div id="lastNameError" class="error"></div>
 							</div>
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Vous devez entrer une adresse email valide."
+								data-error-visible="false"
+							>
 								<label for="email">E-mail</label><br />
 								<input
 									class="text-control"
@@ -93,9 +103,12 @@
 									placeholder="charles.lippens34@gmail.com"
 									required
 								/><br />
-								<div id="emailError" class="error"></div>
 							</div>
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Vous devez entrer votre date de naissance."
+								data-error-visible="false"
+							>
 								<label for="birthdate">Date de naissance</label><br />
 								<input
 									class="text-control"
@@ -105,9 +118,12 @@
 									min="1900-01-01"
 									required
 								/><br />
-								<div id="birthDateError" class="error"></div>
 							</div>
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Veuillez saisir une valeur numérique."
+								data-error-visible="false"
+							>
 								<label for="quantity"
 									>À combien de tournois GameOn avez-vous déjà participé ?</label
 								><br />
@@ -119,11 +135,15 @@
 									placeholder="0"
 									required
 								/>
-								<div id="quantityError" class="error"></div>
 							</div>
 
 							<p class="text-label">Quelle ville ?</p>
-							<div class="formData">
+							<div
+								class="formData"
+								id="allLocations"
+								data-error="Veuillez sélectionner une ville."
+								data-error-visible="false"
+							>
 								<input
 									class="checkbox-input"
 									type="radio"
@@ -191,16 +211,18 @@
 									Portland</label
 								>
 							</div>
-							<div id="locationError" class="error"></div>
 
-							<div class="formData">
+							<div
+								class="formData"
+								data-error="Vous devez accepter les conditions d'utilisation."
+								data-error-visible="false"
+							>
 								<input class="checkbox-input" type="checkbox" id="checkbox1" />
 								<label class="checkbox2-label" for="checkbox1">
 									<span class="checkbox-icon"></span>
 									J'ai lu et accepté les conditions d'utilisation.
 								</label>
 								<br />
-								<div id="conditionsError" class="error"></div>
 							</div>
 							<div class="formData">
 								<input class="checkbox-input" type="checkbox" id="checkbox2" />

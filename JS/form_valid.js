@@ -5,63 +5,64 @@ const lastNameInput = document.getElementById("lastname");
 const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
-const locationInput = document.querySelectorAll(".checkbox-input[type=radio]");
+const allLocations = document.getElementById("allLocations");
+const locationInput = document.querySelectorAll("#allLocations .checkbox-input");
 const checkboxInput = document.getElementById("checkbox1");
-
-// DOM pour les messages des erreurs du formulaire
-
-const firstNameErr = document.getElementById("nameError");
-const lastNameErr = document.getElementById("lastNameError");
-const emailErr = document.getElementById("emailError");
-const birthDateErr = document.getElementById("birthDateError");
-const quantityErr = document.getElementById("quantityError");
-const locationErr = document.getElementById("locationError");
-const conditionsErr = document.getElementById("conditionsError");
 
 // Regex
 
 const regexN = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
 const regexE = /(?=^.{5,255}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
 
-// Vérification de firstname et lastname sont valides
+// Vérification de firstname
 
-function VerifFirstLast(string, name) {
+function FirstName(string, firstNameInput) {
 	if (!regexN.test(string.trim())) {
-		name.textContent = "Veuillez écrire sans caractères spéciaux et 2 caractères min";
+		firstNameInput.parentElement.setAttribute("data-error-visible", true);
 	} else {
-		name.textContent = "";
+		firstNameInput.parentElement.setAttribute("data-error-visible", false);
 	}
 }
 
 // Gestion des events listeners firstname et lastname
 
 firstNameInput.addEventListener("blur", ($event) => {
-	VerifFirstLast($event.target.value, firstNameErr);
+	FirstName($event.target.value, firstNameInput);
 });
 
+// Vérification de firstname
+
+function LastName(string, lastNameInput) {
+	if (!regexN.test(string.trim())) {
+		lastNameInput.parentElement.setAttribute("data-error-visible", true);
+	} else {
+		lastNameInput.parentElement.setAttribute("data-error-visible", false);
+	}
+}
+
+// Gestion des events listeners firstname et lastname
+
 lastNameInput.addEventListener("blur", ($event) => {
-	VerifFirstLast($event.target.value, lastNameErr);
+	LastName($event.target.value, lastNameInput);
 });
 
 // Vérification si l'email est valide et gestion event listener
 
 emailInput.addEventListener("blur", ($event) => {
 	if (!regexE.test($event.target.value.trim())) {
-		emailErr.textContent = "Veuillez écrire une adresse e-mail valide.";
+		emailInput.parentElement.setAttribute("data-error-visible", true);
 	} else {
-		emailErr.textContent = "";
+		emailInput.parentElement.setAttribute("data-error-visible", false);
 	}
 });
 
 // Vérification que la date de naissance soit valide et gestion event listener
 
 birthdateInput.addEventListener("blur", ($event) => {
-	if ($event.target.value.length == 0) {
-		birthDateErr.textContent = "Vous devez écrire votre date de naissance.";
-	} else if (!birthDateValidation($event.target.value)) {
-		birthDateErr.textContent = "Veuillez vérifier votre date de naissance.";
+	if ($event.target.value.length == 0 || !birthDateValidation($event.target.value)) {
+		birthdateInput.parentElement.setAttribute("data-error-visible", true);
 	} else {
-		birthDateErr.textContent = "";
+		birthdateInput.parentElement.setAttribute("data-error-visible", false);
 	}
 });
 
@@ -85,12 +86,10 @@ function birthDateValidation(value) {
 
 quantityInput.addEventListener("blur", ($event) => {
 	let quantity = $event.target.value;
-	if (quantity == "") {
-		quantityErr.textContent = "Choisissez un nombre";
-	} else if (quantity < 0 || quantity > 99) {
-		quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";
+	if (quantity == "" || quantity < 0 || quantity > 99) {
+		quantityInput.parentElement.setAttribute("data-error-visible", true);
 	} else {
-		quantityErr.textContent = "";
+		quantityInput.parentElement.setAttribute("data-error-visible", false);
 	}
 });
 
@@ -99,9 +98,9 @@ locationInput.forEach((btn) =>
 	btn.addEventListener("change", ($event) => {
 		CitySelected = $event.target.value;
 		if (CitySelected !== null) {
-			locationErr.textContent = "";
+			locationInput[0].parentElement.setAttribute("data-error-visible", false);
 		} else {
-			locationErr.textContent = "Choisissez une option";
+			locationInput[0].parentElement.setAttribute("data-error-visible", true);
 		}
 	})
 );
@@ -110,12 +109,11 @@ locationInput.forEach((btn) =>
 
 checkboxInput.addEventListener("change", ($event) => {
 	if (!$event.target.checked) {
-		conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation.";
+		checkboxInput.parentElement.setAttribute("data-error-visible", true);
 	} else {
-		conditionsErr.textContent = "";
+		checkboxInput.parentElement.setAttribute("data-error-visible", false);
 	}
 });
-console.log(checkboxInput.checked);
 
 // Validation formulaire général (en cours)
 function validate(event) {
@@ -130,26 +128,25 @@ function validate(event) {
 		checkboxInput.checked == false
 	) {
 		if (firstNameInput.value.length == 0) {
-			firstNameErr.textContent =
-				"Veuillez écrire sans caractères spéciaux et 2 caractères min";
+			firstNameInput.parentNode.setAttribute("data-error-visible", true);
 		}
 		if (lastNameInput.value.length == 0) {
-			lastNameErr.textContent = "Veuillez écrire sans caractères spéciaux";
+			lastNameInput.parentNode.setAttribute("data-error-visible", true);
 		}
 		if (emailInput.value.length == 0) {
-			emailErr.textContent = "Veuillez écrire une adresse e-mail valide.";
-		}
-		if (quantityInput.value.length == 0) {
-			quantityErr.textContent = "Choisissez un nombre entre 0 et 99.";
+			emailInput.parentNode.setAttribute("data-error-visible", true);
 		}
 		if (birthdateInput.value.length == 0) {
-			birthDateErr.textContent = "Veuillez vérifier votre date de naissance";
+			birthdateInput.parentNode.setAttribute("data-error-visible", true);
+		}
+		if (quantityInput.value.length == 0) {
+			quantityInput.parentNode.setAttribute("data-error-visible", true);
 		}
 		if (!CitySelected) {
-			locationErr.textContent = "Choisissez une option";
+			locationInput[0].parentElement.setAttribute("data-error-visible", true);
 		}
 		if (!checkboxInput.checked) {
-			conditionsErr.textContent = "Vérifiez que vous acceptez les conditions d'utilisation";
+			checkboxInput.parentElement.setAttribute("data-error-visible", true);
 		}
 		return false;
 	}
