@@ -5,7 +5,6 @@ const lastNameInput = document.getElementById("lastname");
 const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
-const allLocations = document.getElementById("allLocations");
 const locationInput = document.querySelectorAll("#allLocations .checkbox-input");
 const checkboxInput = document.getElementById("checkbox1");
 
