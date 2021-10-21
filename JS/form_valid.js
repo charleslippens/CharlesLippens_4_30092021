@@ -12,7 +12,7 @@ const checkboxInput = document.getElementById("checkbox1");
 // Regex
 
 const regexN = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
-const regexE = /(?=^.{5,255}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
+const regexE = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
 
 // Vérification de firstname
 
@@ -66,7 +66,7 @@ birthdateInput.addEventListener("blur", ($event) => {
 	}
 });
 
-// Calcul de l'age de l'utilisateur: il faut entre 13 et 119 ans
+// Calcul de l'age de l'utilisateur: il faut entre 13 et 110 ans
 
 function birthDateValidation(value) {
 	const msYear = 31536000000;
@@ -75,7 +75,7 @@ function birthDateValidation(value) {
 	const currentDate = new Date();
 	const currentT = currentDate.getTime();
 	const age = (currentT - inputT) / msYear;
-	if (age > 12 && age < 120) {
+	if (age > 12 && age < 111) {
 		return true;
 	} else {
 		return false;
